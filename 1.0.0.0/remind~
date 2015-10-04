@@ -1,0 +1,28 @@
+==June 22 2015 ==
+* update bug for _pf.where and add _pf.isexact
+* add fade in pf dom
+==June 5 2015 ==
+* update dom delegate bug
+* dom all: allow to search two or more attribute
+
+==May 31 2015==
+
+*In url replace https to "//" which will be implemented in ajax and js src
+*To create a unique id for pf_dom="text_copy" therefore we can verify if its parent or not and uniq id in all external module
+*element quick search by its attibute key and value
+*remove class pf_canvas
+*In PF Mvc Controller, new function __afterload__
+*add new element_remove under pf_dom attribute
+*revise template module toggle_display
+*add in dom "noteq" or not equal
+*template module "element_redenmove" fix which i accidentally remove
+*add dom function "getindexattr"
+*fix bug in _pf.where which is now compatible both json and array input
+*implementing hash url in template module toggle_display
+*dom fix getattr if now attribut return no json outpur
+*update getcss internal libry
+*adding "getparent" in dom
+*adding "domview" in dom which compress the function 'val','html','text','outerhtml'
+*add new library for internal purposes
+*update inline template that can get exist attribute in element
+*replace pf_core_library.get_element_exist_attr to dom "getallattr"

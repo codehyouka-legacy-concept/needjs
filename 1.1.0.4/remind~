@@ -1,0 +1,20 @@
+==October 4 2015==
+*In utility function new method "isJSONVariableNotExist"
+*In PF Dom updating attrbute to see all element
+*In utility function updating _pf.indexOf that value will work in value
+*In PF Dom added new function where you can filter the attribute only(no need to check the value)
+
+==September 9 2015==
+
+*pf element add new event EventScrollResize
+*compress logic for html select option
+*adding new function call _pf.round_decimal for decimal round off
+*adding new function call _pf.array_sum for array to be sum
+*in ajax library, has a new added method abort
+*in ajax library, method loader was remove 
+*update logic in dom method css regrding duplicate element
+*update logic in dom method addclass and removeClass in removing whitespaces
+*update mvc delegation that can implement two or more method to call
+*utility function adding new has,ifUndefined and group_count
+*adding method even and odd for dom
+
