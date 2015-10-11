@@ -286,7 +286,7 @@ var creat_elem=document.createAttribute("style");
 		return {"xdr":xdr,"xhr_type":xhr_type};
 		
 		},
-		js_event_type:function(xhr,htype,func,jsons){
+		js_event_type:function(xhr,htype,func,jsons,func_type){
 		var retrn={};
 			
 		if(htype==="ie"){
@@ -299,8 +299,17 @@ var creat_elem=document.createAttribute("style");
 						if(typeof(func)==="function"){
 								
 							func(((jsons==="false")?xhr.responseText:_pf.parseJson(xhr.responseText)),xhr);
-							main_dom.setLibrary("ajax",{"status":xhr.status,"success":"failed"});
-							}
+		if(_pf.indexOf([200,202],xhr.status)>-1){
+							main_dom.setLibrary("ajax",{"status":xhr.status,"review":"success"});
+if(_pf.has(func_type,"success")){
+func_type["success"]();
+}
+}else{
+main_dom.setLibrary("ajax",{"status":xhr.status,"review":"failed"});
+if(_pf.has(func_type,"error")){
+func_type["error"]();
+}
+}							}
 						 }
 							})("on"+ie[i]);
 		}
@@ -311,12 +320,18 @@ var creat_elem=document.createAttribute("style");
 							
 								if(xhr.readyState==4){ 
 							if(typeof(func)==="function"){
-								if(xhr.status==200){
+								if(_pf.indexOf([200,202],xhr.status)>-1){
 								retrn.noneie["load"]=func(((jsons==="false")?xhr.responseText:_pf.parseJson(xhr.responseText)),xhr);
-								main_dom.setLibrary("ajax",{"status":xhr.status,"success":"failed"});
+								main_dom.setLibrary("ajax",{"status":xhr.status,"review":"success"});
+if(_pf.has(func_type,"success")){
+func_type["success"]();
+}
 								}else{
 								retrn.noneie["error"]=func(((jsons==="false")?xhr.responseText:_pf.parseJson(xhr.responseText)),xhr);
-								main_dom.setLibrary("ajax",{"status":xhr.status,"success":"failed"});
+								main_dom.setLibrary("ajax",{"status":xhr.status,"review":"failed"});
+if(_pf.has(func_type,"error")){
+func_type["error"]();
+}
 
 								}
 								}
@@ -950,22 +965,22 @@ this.request_header={};
 	var jsons=this.jsones; 
 	var main_ajx=this;
 	var ajx=main_dom.ajax_controller(this.iecross);
-
+	
 try{
 	if(typeof(config.value)=="function"){
-	var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,config.value,jsons);
+	var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,config.value,jsons,config);
 		 js_event[ajx.xhr_type].load;
 		
 		}else if(typeof(config.value)=="object"){
 	
 		 _pf.each(config.value,function(i,v){
 		
-		var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,v,jsons);
+		var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,v,jsons,config);
 	 js_event[ajx.xhr_type][i];
 		});
 		}
 		if(typeof(config.functions)=="function"){
-		var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,config.functions,jsons);
+		var js_event=main_dom.js_event_type(ajx.xdr,ajx.xhr_type,config.functions,jsons,config);
 	 js_event[ajx.xhr_type].load;
 	
 		}else if(typeof(config.functions)=="object"){
@@ -998,33 +1013,36 @@ try{
 	}
 	
 	}
-	pf_ajax.prototype.get=function(value,func){
+	pf_ajax.prototype.get=function(value,func,bool){
 		var jsn_fn={};
 		jsn_fn["method"]="get";
 		jsn_fn["value"]=value||{};
+		jsn_fn["is_success"]=bool||false;
 		if(typeof(func)=="function"){
 		jsn_fn["functions"]=func;	
 		}	
 		this.ajax(jsn_fn);
 	
 	}
-	pf_ajax.prototype.post=function(value,func){
+	pf_ajax.prototype.post=function(value,func,bool){
 		var jsn_fn={};
 		jsn_fn["method"]="post";
 		jsn_fn["value"]=value||{};
+		jsn_fn["is_success"]=bool||false;
 		if(typeof(func)=="function"){
 		jsn_fn["functions"]=func;	
 		}	
 		this.ajax(jsn_fn);
 	
 	}	
-pf_ajax.prototype.returnvalue=function(value_s,func){
+pf_ajax.prototype.returnvalue=function(value_s,func,bool){
 		var main_arr={};
 		var val;
 		var value =value_s||{};
 		
 		main_arr['method']=(_pf.has(value,"method"))?"get":value["method"];
 		main_arr['value']=(_pf.has(value,"value"))?{}:value["value"];
+		jsn_fn["is_success"]=bool||false;
 		main_arr['functions']=function(res){
 			val=res;
 		}
