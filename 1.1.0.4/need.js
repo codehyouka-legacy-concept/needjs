@@ -5,7 +5,7 @@ var pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m4
 /**
 * This program was writtern by pein freccs.
 * Please my repository for details and update
-* https://github.com/hyoukageass/pf-js
+* https://github.com/hyoukageass/burekuiwa-js
 **/
 	
 pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m44csdf41n41.src=[];	
@@ -350,8 +350,8 @@ func_type["error"]();
 					else if(_pf.getJSONtypeof(jsn)=="array"){
 						var arry_psh=[];
 						_pf.each(jsn,function(ck,cv){
-								
-								arry_psh.push(_pf.getKey(cv)+"="+_pf.getValue(cv));
+						
+								arry_psh.push(_pf.getKey(cv)+"="+_pf.getValue(cv).toString());
 						});
 						
 						return arry_psh.join("&");
@@ -1161,7 +1161,36 @@ if(document.readyState==="complete"){
 		}
 
 	}	
-	
+	this.UrlQueryString=function(){
+		var pairs = window.location.search.substring(1).split("&"),
+    obj = {},
+    pair,
+    i;
+
+  for ( i in pairs ) {
+    if ( pairs[i] === "" ) continue;
+
+    pair = pairs[i].split("=");
+    
+    if(typeof(obj[decodeURIComponent( pair[0] )])==="undefined"){
+         obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
+    }else{
+        if(Object.prototype.toString.call(obj[ decodeURIComponent( pair[0] ) ])=="[object Array]"){
+            obj[ decodeURIComponent( pair[0] ) ].push(decodeURIComponent( pair[1] ));
+        }
+       else{
+            var value=obj[ decodeURIComponent( pair[0] ) ];
+             obj[ decodeURIComponent( pair[0] ) ]=[];
+              obj[ decodeURIComponent( pair[0] ) ].push(value);
+             obj[ decodeURIComponent( pair[0] ) ].push(decodeURIComponent( pair[1] ));
+       }
+    }
+   
+  }
+
+  return obj;	
+
+	}
 	
 	function pf_agenttype(d){
 	var nav_browser=navigator.userAgent||navigator.vendor||window.opera;
