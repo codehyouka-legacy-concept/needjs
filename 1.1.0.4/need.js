@@ -4,7 +4,11 @@ var pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m4
 
 /**
 * This program was writtern by pein freccs.
+<<<<<<< HEAD
 * Please check my repository for details and update
+=======
+* Please my repository for details and update
+>>>>>>> 32b5557dc4e9a43b69ae00b2194c7133c07c0652
 * https://github.com/hyoukageass/burekuiwa-js
 **/
 	
