@@ -4,8 +4,8 @@ var pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m4
 
 /**
 * This program was writtern by pein freccs.
-* Please my repository for details and update
-* https://github.com/hyoukageass/pf-js
+* Please check my repository for details and update
+* https://github.com/hyoukageass/burekuiwa-js
 **/
 	
 pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m44csdf41n41.src=[];	
@@ -350,8 +350,8 @@ func_type["error"]();
 					else if(_pf.getJSONtypeof(jsn)=="array"){
 						var arry_psh=[];
 						_pf.each(jsn,function(ck,cv){
-								
-								arry_psh.push(_pf.getKey(cv)+"="+_pf.getValue(cv));
+						
+								arry_psh.push(_pf.getKey(cv)+"="+_pf.getValue(cv).toString());
 						});
 						
 						return arry_psh.join("&");
@@ -588,18 +588,18 @@ func_type["error"]();
 		ajax_http_loader:function(main_jsn,xdr,method,url,parameter,dataform){
 
 			
-		var main_jsn=this;
+	//?	var main_jsn=this;
 		try{
 		var js_url=main_dom.checkurlvalid_ajax(url);
 		try{
 if(method==="get"){
 	xdr.open(method,js_url+"?"+parameter,false);
-	xdr.send(dataform);
+	xdr.send(dataform); 
 	}
 else if(method==="post"){
 	xdr.open(method,js_url,false);
 	if(_pf.has(xdr.setRequestHeader)){
-	xdr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	
 	
 		if(_pf.count(main_jsn.request_header)>0){
 			_pf.each(main_jsn.request_header,function(rk,rv){
@@ -619,13 +619,15 @@ else if(method==="post"){
 		}
 	}	
 	if(!_pf.has(dataform)){
-		xdr.send(parameter);
-	}else{
+			xdr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xdr.send(parameter); 
+	}else{ 
+	
 		xdr.send(dataform);
 	}
 	
 }	
-else{
+else{ 
 	xdr.open(method,js_url+"?"+parameter,false);
 	xdr.send(dataform);
 	}
@@ -930,13 +932,15 @@ this.request_header={};
 	}
 	pf_ajax.prototype.setFormData=function(formda,bols){
 		var boolsdata=bols||false;
-		if(boolsdata=false){
-			var formdom=pf$(formda).getlength();
-			if(formdom>0){
-				this.dataform= new FormData(pf$(formda).element[0]);
-			}
+	//?	if(boolsdata===false){
+		
+			if(formda instanceof Object){
+				this.dataform=formda;		
+			
+	//?		}
 		}else{
-			this.dataform=formda;
+			
+			this.dataform= new FormData(pf$(formda).element[0]);
 		}
 		return this;
 	}
@@ -998,6 +1002,17 @@ try{
 		var s_ajax=main_dom.ajax_http_loader;
 		var s_data=this.data;
 		var s_dataform=this.dataform;
+		
+		if (s_dataform instanceof Object) {
+			//code
+			if (_pf.getJSONtypeof(config.value)==="json") {
+						//code
+					_pf.each(config.value,function(frmk,frmv){
+						s_dataform.append(frmk,frmv);	
+					});
+			}
+			
+		}
 		if(s_type==="timeout"){
 		setTimeout(function(){
 	s_ajax(main_ajx,ajx.xdr,method,s_data,main_dom.js_json_delimiters(((typeof(config.value)=="function")?"":config.value)),s_dataform);
@@ -1161,7 +1176,36 @@ if(document.readyState==="complete"){
 		}
 
 	}	
-	
+	this.UrlQueryString=function(){
+		var pairs = window.location.search.substring(1).split("&"),
+    obj = {},
+    pair,
+    i;
+
+  for ( i in pairs ) {
+    if ( pairs[i] === "" ) continue;
+
+    pair = pairs[i].split("=");
+    
+    if(typeof(obj[decodeURIComponent( pair[0] )])==="undefined"){
+         obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
+    }else{
+        if(Object.prototype.toString.call(obj[ decodeURIComponent( pair[0] ) ])=="[object Array]"){
+            obj[ decodeURIComponent( pair[0] ) ].push(decodeURIComponent( pair[1] ));
+        }
+       else{
+            var value=obj[ decodeURIComponent( pair[0] ) ];
+             obj[ decodeURIComponent( pair[0] ) ]=[];
+              obj[ decodeURIComponent( pair[0] ) ].push(value);
+             obj[ decodeURIComponent( pair[0] ) ].push(decodeURIComponent( pair[1] ));
+       }
+    }
+   
+  }
+
+  return obj;	
+
+	}
 	
 	function pf_agenttype(d){
 	var nav_browser=navigator.userAgent||navigator.vendor||window.opera;
@@ -2738,8 +2782,12 @@ _pf.isExact=function(key,val){
 			}
 		}
 	});
+if (cnt==0)
+return false;
+else
 return cnt==_pf.count(val);
 }
+
 _pf.where=function(jsn,whr,func){
 		var jsn_val={};
 
@@ -3864,13 +3912,10 @@ var arr_action=pf_core_val.render;
 }
 pf_view.prototype.loadLibrary=function(cls_glb,classes,ldb){
 
-	var cls={};
+	
 try{
-		for(var in_cls in classes){
-			cls[in_cls]=classes[in_cls];
-			
-			}
 		
+		var cls=_pf.isJSONVariableNotExist({},classes);
 		pf_ew4sd12m23mkk13k13m12k3mdasdsds4ffjmlpsdjjn344n24j2bjb313n31m3n1m31m3n1m44csdf41n41.control[ldb][cntlr_m]=cls;
 		if(ldb=="delegation_list"){
 
