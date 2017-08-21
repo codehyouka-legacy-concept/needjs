@@ -1,0 +1,22 @@
+
+<!doctype>
+
+<script src="../../prod/need.js"></script>
+
+<h1>Creating your an event trigger </h1>
+
+<input type="button" id="test1" value="Test1 to run">
+<input type="button" id="test2" value="Test2 to run">
+<script type="text/javascript">
+pf("dom_ready",function(){
+	
+	//new version
+	pf$("#test1").click(function(){
+		alert("Test 1 working!!");
+	});
+	//old version
+	pf("dom","#test2").click(function(){
+		alert("Test 2 working!!");
+	});
+});
+</script>
