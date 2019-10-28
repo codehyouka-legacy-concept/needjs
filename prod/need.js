@@ -3,7 +3,7 @@
 /**
 * This program was writtern by pein freccs.
 * Please check my repository for details and update
-* https://github.com/codehyouka/needjs
+* https://github.com/codehyouka-legacy-concept/needjs
 **/
 	
 var pf_glbl=window[Math.random().toString(36).replace(/[^a-z]+/g, '')]={};
